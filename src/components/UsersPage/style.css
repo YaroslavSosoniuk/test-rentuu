@@ -1,0 +1,6 @@
+.user_pagination{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+}

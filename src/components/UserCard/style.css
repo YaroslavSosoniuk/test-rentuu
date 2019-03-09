@@ -1,0 +1,10 @@
+.user_card{
+    margin: 10px 0;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    border-width: 1px;
+    border-color: #000;
+    border-style: solid;
+    padding: 10px 20px;
+}
