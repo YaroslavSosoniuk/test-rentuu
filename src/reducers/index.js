@@ -8,7 +8,7 @@ const initialState = {
     step:0,
     userPageInfo:{},
     users:[],
-    chosenUser:{}
+    chosenUser:[]
 };
 function rootReducer(state = initialState, action) {
     switch (action.type) {
@@ -64,18 +64,35 @@ function rootReducer(state = initialState, action) {
 
             })
         case 'CHANGE_USER_DATA':
+            console.log(action.payload);
             return Object.assign({}, state, {
+                allUsers: state.allUsers.map(user => {
+                    if (user.id === action.payload.id) {
+                        user.name = action.payload.name;
+                        user.lastName = action.payload.lastName;
+                        return user
+                    }
+                    return user
+                }),
                 users: state.users.map( (user) => {
 
-                    if (user.id === action.payload.id){
-                        user.first_name = action.payload.name;
-                        user.last_name = action.payload.lastName;
+                    if (user.id === action.payload.id) {
+                        user.name = action.payload.name;
+                        user.lastName = action.payload.lastName;
                         return user
                     }
                     return user
 
                 } ),
-                chosenUser : state.chosenUser.id === action.payload.id
+                usersToShow: state.usersToShow.map( user => {
+                    if (user.id === action.payload.id) {
+                        user.name = action.payload.name;
+                        user.lastName = action.payload.lastName;
+                        return user
+                    }
+                    return user
+                } ),
+                chosenUser : (state.chosenUser.length > 0 &&state.chosenUser[0].id === action.payload.id)
                     ?
                     state.chosenUser.map(
                         (user) => {
@@ -86,13 +103,22 @@ function rootReducer(state = initialState, action) {
                     : state.chosenUser
             })
         case "DATA_LOADED":
-            initialState.allUsers = action.payload;
-            initialState.usersToShow = action.payload.map( ( user ) => {
+            initialState.allUsers = action.payload.map ( user => {
                 return {
-                        id: user.id,
-                        name: user.first_name,
-                        lastName : user.last_name,
-                        ipAddress: user.ip_address
+                    id : user.id,
+                    name: user.first_name,
+                    lastName : user.last_name,
+                    gender:user.gender,
+                    email:user.email,
+                    ipAddress:user.ip_address
+                }
+            } );
+            initialState.usersToShow = state.allUsers.map( ( user ) => {
+                return {
+                        id:user.id,
+                        name:user.name,
+                        lastName:user.lastName,
+                        ipAddress:user.ipAddress
                 }
             });
             return Object.assign({}, state, {
@@ -104,7 +130,7 @@ function rootReducer(state = initialState, action) {
             })
         case "GET_USER_DATA":
             return Object.assign( {}, state, {
-                chosenUser: state.allUsers.filter( (user ) => user.id === action.payload.id)
+                chosenUser: state.allUsers.filter( ( user ) => user.id === action.payload.id)
             } )
     }
     return state

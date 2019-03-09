@@ -7,7 +7,7 @@ export default ( { name, lastName, ipAddress,email, gender, country, match, id  
 
     return (
         <div className={'user_card'}>
-            <UserForm name={ name } lastName = { lastName }/>
+            <UserForm name={ name } lastName = { lastName } id={ id }/>
             <p> { ipAddress } </p>
             {email && <p> { email } </p> }
             {gender && <p> { gender } </p>}

@@ -47,7 +47,7 @@ class UserFormEditable extends React.Component {
     }
     onSave  (e) {
 
-        this.props.changeUserData({name:this.state.name, lastName:this.state.lastName });
+        this.props.changeUserData({name:this.state.name, lastName:this.state.lastName, id: this.props.id });
         this.setState({ editable: false })
 
     }
@@ -70,8 +70,8 @@ class UserFormEditable extends React.Component {
                         </div>)
                     :
                     (<div className='user_form'>
-                        <UserField name={this.state.name} onDblClick={this.handleEditable}/>
-                        <UserField lastName={this.state.lastName} onDblClick={this.handleEditable}/>
+                        <UserField name={this.props.name} onDblClick={this.handleEditable}/>
+                        <UserField lastName={this.props.lastName} onDblClick={this.handleEditable}/>
                     </div>)
                 }
             </div>

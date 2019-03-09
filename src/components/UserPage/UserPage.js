@@ -22,9 +22,9 @@ class UserPage extends React.Component {
             <div>
                 {this.props.chosenUser.length > 0 ?
                     (<UserCard
-                        name={this.props.chosenUser[0].first_name}
-                        lastName={this.props.chosenUser[0].last_name}
-                        ipAddress={this.props.chosenUser[0].ip_address}
+                        name={this.props.chosenUser[0].name}
+                        lastName={this.props.chosenUser[0].lastName}
+                        ipAddress={this.props.chosenUser[0].ipAddress}
                         email={this.props.chosenUser[0].email}
                         gender={this.props.chosenUser[0].gender}
                         country={this.props.chosenUser[0].country}
