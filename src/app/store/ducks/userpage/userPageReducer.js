@@ -18,8 +18,12 @@ const userPageReducer = ( state = initialState, { type, payload }) => {
         case types.CHANGE_USER_DATA :
             return ({
                 ...state,
-                name: payload.name ,
-                lastName: payload.lastName
+                userInfo: state.userInfo.map( ({id,name,lastName, ...rest})=>({
+                    id:payload.id,
+                    name:payload.name,
+                    lastName:payload.lastName,
+                    ...rest
+                }) )
             })
 
     }
