@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import UsersPage from '../UsersPage/UsersPage';
 import { BrowserRouter as Router, Route , Link} from 'react-router-dom';
 import UserPage from '../UserPage/UserPage';

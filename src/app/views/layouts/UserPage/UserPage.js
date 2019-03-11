@@ -1,16 +1,19 @@
 import React from 'react';
-import { getUserData } from "../../actions/actions";
+import { getUserData , changeUserData} from "../../../store/ducks/userpage/actions";
 import { connect } from 'react-redux';
-import UserCard from '../UserCard/UserCard';
+import UserCard from '../../components/UserCard/UserCard';
 
 class UserPage extends React.Component {
 
     constructor ( props ) {
 
         super( props );
+        this.changeUserData = this.changeUserData.bind(this);
 
     }
-
+    changeUserData (id, name, lastName ){
+        this.props.changeUserData({id,name,lastName})
+    }
     componentDidMount () {
 
         this.props.getUserData({id:this.props.match.params.id});
@@ -30,6 +33,7 @@ class UserPage extends React.Component {
                         country={this.props.chosenUser[0].country}
                         id={this.props.chosenUser[0].id}
                         match={this.props.match}
+                        onChange={(id,name,lastName) => this.changeUserData({id,name,lastName})}
                     />)
                     : (
                         <div>
@@ -42,6 +46,9 @@ class UserPage extends React.Component {
 
 }
 function mapDispatchToProps (dispatch) {
-    return {getUserData: id => dispatch(getUserData(id))}
+    return {
+        getUserData: id => dispatch(getUserData(id)),
+        changeUserData: data => dispatch(changeUserData(data))
+    }
 }
-export default connect((state) =>  {return { chosenUser: state.chosenUser }}, mapDispatchToProps)(UserPage)
+export default connect((state) =>   { chosenUser: state.userInfo }, mapDispatchToProps)(UserPage)

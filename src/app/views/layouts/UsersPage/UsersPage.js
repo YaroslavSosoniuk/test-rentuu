@@ -1,9 +1,9 @@
 import React from 'react';
-import UserFilter from '../CountOfUsersFilter/CUF';
-import UserCard from '../UserCard/UserCard';
+import UserFilter from '../../components/CountOfUsersFilter/CUF';
+import UserCard from '../../components/UserCard/UserCard';
 import { connect } from "react-redux";
-import PaginationButton from '../PaginationButton/PaginationButton';
-import {filterUsers, getData, getNextUsers, getPrevUsers} from "../../actions/actions";
+import PaginationButton from '../../components/PaginationButton/PaginationButton';
+import {changeUserDataFromList, getNextUsers, getPrevUsers,getUsersData,filterUsers} from "../../../store/ducks/usersPage/actions";
 import './style.css';
 
 
@@ -13,13 +13,13 @@ class UsersPage extends React.Component {
 
         super( props );
         this.onChangeFilter = this.onChangeFilter.bind(this);
+        this.onChangeUserData = this.onChangeUserData.bind(this);
 
     }
 
     componentDidMount(){
 
-        this.props.getData();
-        console.log(this.props.match);
+        this.props.getUsersData();
 
     }
     onChangeFilter  (e) {
@@ -27,12 +27,15 @@ class UsersPage extends React.Component {
         this.props.filterUsers({filter: e.target.value});
 
     }
+    onChangeUserData (id, name, lastName ){
+        changeUserDataFromList({id,name,lastName});
+    }
 
     render() {
 
 
-        let users = this.props.users.map( val => <UserCard name={val.name} lastName={val.lastName} ipAddress={val.ipAddress} key={val.id} match={this.props.match} id={val.id}/>);
-        console.log(this.props);
+        let users = this.props.users.map( val => <UserCard name={val.name} lastName={val.lastName} ipAddress={val.ipAddress} key={val.id} match={this.props.match} id={val.id} onChange = { (id,name,lastName) => this.onChangeUserData(id,name,lastName)}/>);
+
         return (
             <div className='page_container'>
                 <UserFilter userCount={this.props.filter} onChange={this.onChangeFilter}/>
@@ -51,15 +54,20 @@ class UsersPage extends React.Component {
 }
 function mapStateToProps(state) {
     return {
-        ...state
+        users: state.usersToShow,
+        hasNextUsers: state.hasNextUsers,
+        hasPrevUsers: state.hasPrevUsers,
+        filter:filter,
+        step:step
     };
 }
 function mapDispatchToProps(dispatch) {
     return {
         filterUsers: data => dispatch(filterUsers(data)),
-        getData: () => dispatch(getData()),
+        getUsersData: () => dispatch(getUsersData()),
         getPrevUsers: step => dispatch(getPrevUsers(step)),
-        getNextUsers: step => dispatch(getNextUsers(step))
+        getNextUsers: step => dispatch(getNextUsers(step)),
+        changeUserDataFromList: (data) => dispatch(changeUserDataFromList(data))
 
     };
 }

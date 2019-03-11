@@ -2,8 +2,6 @@ import React from 'react';
 import UserField from '../UserField/UserField';
 import UserTextField from '../UserTextField/UserTextField';
 import UserButtonAction from '../UserActionButton/UserActionButton';
-import { connect } from 'react-redux';
-import { changeUserData } from "../../actions/actions";
 import './style.css';
 
 class UserFormEditable extends React.Component {
@@ -46,8 +44,7 @@ class UserFormEditable extends React.Component {
 
     }
     onSave  (e) {
-
-        this.props.changeUserData({name:this.state.name, lastName:this.state.lastName, id: this.props.id });
+        this.props.onChange(this.props.id, this.state.name, this.state.lastName);
         this.setState({ editable: false })
 
     }
@@ -78,10 +75,4 @@ class UserFormEditable extends React.Component {
         )
 
     }
-}
-export default connect (null, mapDispatchToProps)(UserFormEditable);
-function mapDispatchToProps(dispatch) {
-    return {
-        changeUserData: data => dispatch(changeUserData(data))
-    };
 }

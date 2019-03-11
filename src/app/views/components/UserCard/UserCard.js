@@ -3,11 +3,11 @@ import UserForm from '../UserFormEditable/UserFormEditable';
 import {Link} from 'react-router-dom';
 import './style.css';
 
-export default ( { name, lastName, ipAddress,email, gender, country, match, id  } ) => {
+export default ( { name, lastName, ipAddress,email, gender, country, match, id, onChange  } ) => {
 
     return (
         <div className={'user_card'}>
-            <UserForm name={ name } lastName = { lastName } id={ id }/>
+            <UserForm name={ name } lastName = { lastName } id={ id } onChange={ onChange }/>
             <p> { ipAddress } </p>
             {email && <p> { email } </p> }
             {gender && <p> { gender } </p>}
