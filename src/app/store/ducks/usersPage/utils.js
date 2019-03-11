@@ -10,7 +10,7 @@ export const mapJsonUsersDataAll = ({
                                             id ,
                                             gender,
                                             email,
-                                            name: last_name,
+                                            name: first_name,
                                             lastName: last_name,
                                             ipAddress:ip_address
                                         } );
@@ -31,15 +31,15 @@ export const firstUsersFilter = ( users ) => {
     const usersToShow = users.length > 5 ?
         users.map( mapJsonUsersDataCut ).slice(0, 5)
         :
-        user.map( mapJsonUsersDataCut).slice(0,user.length);
-    return users
+        users.map( mapJsonUsersDataCut).slice(0, users.length);
+    return usersToShow
 
 };
 export const setNewUserData = ( users, { name, lastName, id } ) => {
 
     const newUsers = users.map( ( user, index ) => {
 
-        return index === id
+        return user.id === id
             ?
             {
                 ...user,

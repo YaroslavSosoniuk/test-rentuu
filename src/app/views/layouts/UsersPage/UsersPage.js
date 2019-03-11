@@ -28,13 +28,13 @@ class UsersPage extends React.Component {
 
     }
     onChangeUserData (id, name, lastName ){
-        changeUserDataFromList({id,name,lastName});
+        this.props.changeUserDataFromList( {id,name,lastName} );
     }
 
     render() {
 
 
-        let users = this.props.users.map( val => <UserCard name={val.name} lastName={val.lastName} ipAddress={val.ipAddress} key={val.id} match={this.props.match} id={val.id} onChange = { (id,name,lastName) => this.onChangeUserData(id,name,lastName)}/>);
+        let users = this.props.usersToShow.map( val => <UserCard name={val.name} lastName={val.lastName} ipAddress={val.ipAddress} key={val.id} match={this.props.match} id={val.id} onChange = { this.onChangeUserData }/>);
 
         return (
             <div className='page_container'>
@@ -54,11 +54,11 @@ class UsersPage extends React.Component {
 }
 function mapStateToProps(state) {
     return {
-        users: state.usersToShow,
-        hasNextUsers: state.hasNextUsers,
-        hasPrevUsers: state.hasPrevUsers,
-        filter:filter,
-        step:step
+        usersToShow: state.usersPageReducer.usersToShow,
+        hasNextUsers: state.usersPageReducer.hasNextUsers,
+        hasPrevUsers: state.usersPageReducer.hasPrevUsers,
+        filter:state.usersPageReducer.filter,
+        step:state.usersPageReducer.step
     };
 }
 function mapDispatchToProps(dispatch) {
@@ -68,7 +68,6 @@ function mapDispatchToProps(dispatch) {
         getPrevUsers: step => dispatch(getPrevUsers(step)),
         getNextUsers: step => dispatch(getNextUsers(step)),
         changeUserDataFromList: (data) => dispatch(changeUserDataFromList(data))
-
     };
 }
 export default connect(

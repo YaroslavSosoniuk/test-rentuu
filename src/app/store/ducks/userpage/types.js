@@ -1,2 +1,2 @@
-export const GET_USER_DATA = 'GET_USER_DATA';
+export const USER_LOADED = 'USER_LOADED';
 export const CHANGE_USER_DATA = 'CHANGE_USER_DATA';

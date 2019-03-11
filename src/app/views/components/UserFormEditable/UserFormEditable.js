@@ -44,7 +44,8 @@ class UserFormEditable extends React.Component {
 
     }
     onSave  (e) {
-        this.props.onChange(this.props.id, this.state.name, this.state.lastName);
+
+        this.props.onChange( this.props.id, this.state.name, this.state.lastName );
         this.setState({ editable: false })
 
     }
@@ -76,3 +77,4 @@ class UserFormEditable extends React.Component {
 
     }
 }
+export default UserFormEditable;
