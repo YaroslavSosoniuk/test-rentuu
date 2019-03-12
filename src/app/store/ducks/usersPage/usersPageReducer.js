@@ -31,7 +31,7 @@ const usersPageReducer = ( state = initialState, { type, payload } ) => {
             return ({
                 ...state,
                     loadedUsers: utils.setNewUserData( state.loadedUsers, payload ),
-                    cutUserInfo: utils.setNewUserData(state.cutUsersInfo, payload),
+                    cutUsersInfo: utils.setNewUserData(state.cutUsersInfo, payload),
                     usersToShow: utils.setNewUserData(state.usersToShow, payload)
             })
         case types.FILTER_USERS :

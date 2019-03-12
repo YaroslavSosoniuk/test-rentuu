@@ -11,7 +11,6 @@ const userPageReducer = ( state = initialState, { type, payload }) => {
     switch ( type ) {
 
         case types.USER_LOADED :
-            console.log(payload);
             return {
                 ...state,
                 userInfo: payload.users.filter( user => user.id === payload.id ).map( mapJsonUsersDataAll )
