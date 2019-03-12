@@ -72,5 +72,13 @@ function mapDispatchToProps(dispatch) {
 }
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
+    null,
+    {
+        areStatesEqual: (next, prev) => {
+            return (
+                prev.usersPageReducer.usersToShow === next.usersPageReducer.usersToShow
+            );
+        }
+    }
 )(UsersPage);
